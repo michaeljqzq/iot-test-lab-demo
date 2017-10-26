@@ -99,6 +99,26 @@ const font = [[0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 [0x00, 0x02, 0x02, 0x7C, 0x80, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0x3F, 0x00, 0x00, 0x00, 0x00],
 [0x00, 0x06, 0x01, 0x01, 0x02, 0x02, 0x04, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]];
 
+
+var smallTweet =
+    [
+        0x00, 0x00, 0x38, 0xf0, 0xe0, 0xe0, 0xc0, 0xc0, 0xf0, 0xfc, 0xfa, 0xfa, 0xd8, 0xf0, 0xe0, 0x80,
+        0x40, 0x00,
+        0x00, 0x04, 0x08, 0x18, 0x19, 0x3b, 0x3f, 0x3f, 0x3f, 0x3f, 0x3f, 0x1f, 0x1f, 0x0f, 0x07, 0x01,
+        0x01, 0x00,
+    ];
+var bigCry =
+    [
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xe0, 0xf0, 0xf0, 0xf8, 0xf8, 0xfc, 0xfc, 0xfc,
+        0xfc, 0xfc, 0xfc, 0xf8, 0xf8, 0xf0, 0xf0, 0xe0, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0xe0, 0xf8, 0xfe, 0xff, 0xff, 0xe7, 0xc3, 0x81, 0x81, 0xc3, 0xe7, 0xff, 0xff, 0xff,
+        0xff, 0xff, 0xff, 0xe7, 0xc3, 0x81, 0x81, 0xc3, 0xe7, 0xff, 0xff, 0xfe, 0xf8, 0xe0, 0x00, 0x00,
+        0x00, 0x00, 0x07, 0x1f, 0x7f, 0xff, 0xff, 0xdf, 0x8f, 0x87, 0xc3, 0xe3, 0xf1, 0xf1, 0xf8, 0xf8,
+        0xf8, 0xf8, 0xf1, 0xf1, 0xe3, 0xc3, 0x87, 0x8f, 0xdf, 0xff, 0xff, 0x7f, 0x1f, 0x07, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x07, 0x0f, 0x0f, 0x1f, 0x1f, 0x3f, 0x3f, 0x3f,
+        0x3f, 0x3f, 0x3f, 0x1f, 0x1f, 0x0f, 0x0f, 0x07, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    ];
+
 class OLED extends React.Component {
     constructor(props) {
         console.log('constructor called')
@@ -149,7 +169,7 @@ class OLED extends React.Component {
             }
         }
         if (external) {
-            this.shape.draw();
+            this.refs.shape.draw();
         }
     }
 
@@ -186,12 +206,12 @@ class OLED extends React.Component {
                 this.printChar(c++, line, str[i]);
             }
         }
-        this.shape.draw();
+        window.mj2.draw();
     }
 
     clean = () => {
         this._clearRect(0, 0, 128, 64);
-        this.shape.draw();
+        this.refs.shape.draw();
     }
 
     initDraw = (canvasContext) => {
@@ -200,7 +220,7 @@ class OLED extends React.Component {
         if (window.Konva.SceneContext.prototype.isPrototypeOf(canvasContext)) {
             canvasContext.fillStyle = "#2d2d2d";
             canvasContext.fillRect(0, 0, XX * p, YY * p);
-            if (this.props.switchOn) {
+            // if (this.props.switchOn) {
                 canvasContext.fillStyle = "#ffc000";
                 for (let j = 0; j < YY / 4; j++) {
                     for (let i = 0; i < XX; i++) {
@@ -217,20 +237,37 @@ class OLED extends React.Component {
                         }
                     }
                 }
-            }else {
-                this.pixels.fill(false);
-            }
+            // }else {
+                // this.pixels.fill(false);
+            // }
         }
         // console.log('render end, ' + (+new Date() - start));
     }
 
     componentDidMount() {
-        window.mj2 = this.shape;
+      console.log('oled mount');
+        window.mj2 = this.refs.shape;
+        let Screen = this;
+        if (window.location.href.indexOf("/detail/1") !== -1) {
+          Screen.print(0, "   No tweets...");
+          Screen.draw(0, 0, 18, 2, smallTweet);
+          Screen.draw(20 + 20, 1 * 2, 20 + 52, 1 * 2 + 4, bigCry);
+          Screen.print(3, "Press A to Shake!");
+        } else if (window.location.href.indexOf("/detail/2") !== -1) {
+          console.log(Screen);
+          Screen.print(0, "   @Nazzik:");
+          Screen.draw(0, 0, 18, 2, smallTweet);
+          Screen.print(1, "RT @Yla1978: #dimash #DQ #dimashkudaiberge #bestsinger https://…", true);
+        }
+    }
+
+    componentWillUnmount() {
+      console.log('oled unmount')
     }
 
     render() {
         return (
-            <Shape ref={el => { this.shape = el; }} sceneFunc={this.initDraw} x={this.props.x} y={this.props.y} width={this.props.w} height={this.props.h} />
+            <Shape ref="shape" sceneFunc={this.initDraw} x={this.props.x} y={this.props.y} width={this.props.w} height={this.props.h} />
         );
     }
 }

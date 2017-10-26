@@ -8,6 +8,7 @@
     "azure-iot-device": "1.1.7",
     "bootstrap": "^3.3.7",
     "fabric": "^1.7.16",
+    "griddle-react": "^1.9.0",
     "immutable": "^3.8.1",
     "konva": "^1.6.3",
     "monaco-editor": "^0.10.0",
@@ -16,6 +17,7 @@
     "paho-mqtt": "^1.0.3",
     "react": "^15.6.1",
     "react-bootstrap": "^0.30.9",
+    "react-bootstrap-table": "^4.1.1",
     "react-console-component": "^0.6.1",
     "react-dom": "^15.5.4",
     "react-ga": "^2.2.0",
@@ -23,6 +25,7 @@
     "react-load-script": "0.0.6",
     "react-localization": "^0.1.0",
     "react-redux": "^5.0.6",
+    "react-router": "3.0.5",
     "redux": "^3.7.2",
     "sass-loader": "^6.0.6",
     "uuid": "^3.0.1"

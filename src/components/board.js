@@ -11,6 +11,9 @@ import devkitImage from '../img/devkit-board.png';
 import { Map } from 'immutable';
 import * as sensorName from '../constants/sensorName';
 
+
+
+
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -153,6 +156,7 @@ class Board extends Component {
         if (!window.devkitPlayground) {
             window.devkitPlayground = Object.assign({}, this.element);
         }
+        
     }
 
     componentWillUnmount() {

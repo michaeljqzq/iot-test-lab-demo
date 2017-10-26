@@ -1,0 +1,30 @@
+.mj-container {
+  width: 100%;
+  display: flex;
+}
+
+.mjcss1 {
+  width: 1024px;
+}
+
+.mj-detail {
+  background-color: #f4f4f4;
+  padding-top: 100px;
+  padding-left: 30px;
+  flex:1;
+}
+
+.mj-detail div,.mj-detail a {
+  margin-top: 30px;
+}
+
+.mj-terminal {
+  background-color: rgb(7,52,97);
+  height: 100%;
+  font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
+  color: white;
+  white-space: pre;
+  font-size: 12px;
+  overflow: scroll;
+  max-width: 600px;
+}

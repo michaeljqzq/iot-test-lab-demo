@@ -2,12 +2,42 @@ import React, { Component } from 'react';
 import Console from 'react-console-component';
 import 'react-console-component/main.css';
 import Localization from '../localization/localization';
+var console1 = `Initializing Wifi...
+Connecting to IoT Hub
+Successfully connected to IoT Hub.
+
+Shake shake!
+Successfully finished shake action.
+Sending message to IoT Hub.
+IoT Hub responded with OK.
+Calling Azure Function.
+
+[Error] Timeout receiving from Azure Function`;
+
+ var console2 = `Initializing Wifi...
+Connecting to IoT Hub
+Successfully connected to IoT Hub.
+
+Shake shake!
+Successfully finished shake action.
+Sending message to IoT Hub.
+IoT Hub responded with OK.
+Calling Azure Function.
+
+@Nazzik:
+RT @Yla1978: #dimash #DQ #dimashkudaibergenov #dears #kudaibergenovdimash #thesingerdimash #music #talent #voice #song #bestsinger https://…
+ `;
 
 class MyConsole extends Component {
     constructor(props) {
         super(props);
+         if(window.location.href.indexOf("/detail/1")!== -1) {
+        var mj = console1;
+      }else if(window.location.href.indexOf("/detail/2")!== -1) {
+var mj = console2;
+      }
         this.state = {
-            text: Localization.getLocalizedString().consoleWelcomeMessage + "\n",
+            text: mj,
         }
     }
     componentDidUpdate(prevProps, prevState) {
