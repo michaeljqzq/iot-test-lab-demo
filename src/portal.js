@@ -142,7 +142,7 @@ var rawHtmlString = `<body class="f-topbar-fixed">
 
                 <!-- builds -->
                 <!-- ngIf: project.builds.length > 0 --><div class="project-builds ng-scope" ng-if="project.builds.length > 0">
-                    <!-- ngRepeat: build in project.builds --><div class="project-build project-build-status success" ng-repeat="build in project.builds">
+                    <!-- ngRepeat: build in project.builds --><div class="project-build project-build-status failed" ng-repeat="build in project.builds">
                         <!-- pull request -->
                         <!-- ngIf: build.pullRequestId -->
                         <!-- Message and version -->
@@ -158,7 +158,7 @@ var rawHtmlString = `<body class="f-topbar-fixed">
                         <div class="row">
                             <div class="medium-4 columns">
                                 <div class="project-build-details ng-binding">
-                                    &nbsp;
+                                a day ago
 
                                     <!-- author/committer -->
                                     <!-- ngIf: build.authorName || build.authorUsername --><span class="author ng-scope" ng-if="build.authorName || build.authorUsername">
@@ -184,7 +184,7 @@ var rawHtmlString = `<body class="f-topbar-fixed">
                                     <!-- ngIf: build.status == 'cancelling' -->
                                     <!-- ngIf: build.status == 'running' -->
                                     <!-- ngIf: build.status == 'success' --><div ng-if="build.status == 'success'" title="25 Oct, 2017 13:18:27 - 13:23:25" class="ng-scope">
-                                        <span class="ng-binding">a day ago</span> in <span elapsed-time-since="build.started" elapsed-time-to="build.finished">4 min 58 sec</span>
+                                        <span class="ng-binding"></span>  <span elapsed-time-since="build.started" elapsed-time-to="build.finished">a day ago in 4 min 58 sec</span>
                                     </div><!-- end ngIf: build.status == 'success' -->
                                     <!-- ngIf: build.status == 'failed' -->
                                     <!-- ngIf: build.status == 'cancelled' -->
@@ -684,7 +684,7 @@ var rawHtmlString2 = `<body class="f-topbar-fixed">
                         <div class="row">
                             <div class="medium-4 columns">
                                 <div class="project-build-details ng-binding">
-                                    &nbsp;
+                                    a day ago
 
                                     <!-- author/committer -->
                                     <!-- ngIf: build.authorName || build.authorUsername --><span class="author ng-scope" ng-if="build.authorName || build.authorUsername">
@@ -710,7 +710,7 @@ var rawHtmlString2 = `<body class="f-topbar-fixed">
                                     <!-- ngIf: build.status == 'cancelling' -->
                                     <!-- ngIf: build.status == 'running' -->
                                     <!-- ngIf: build.status == 'success' --><div ng-if="build.status == 'success'" title="25 Oct, 2017 13:18:27 - 13:23:25" class="ng-scope">
-                                        <span class="ng-binding"></span>  <span elapsed-time-since="build.started" elapsed-time-to="build.finished">just now</span>
+                                        <span class="ng-binding"></span>  <span elapsed-time-since="build.started" elapsed-time-to="build.finished"></span>
                                     </div><!-- end ngIf: build.status == 'success' -->
                                     <!-- ngIf: build.status == 'failed' -->
                                     <!-- ngIf: build.status == 'cancelled' -->
@@ -1059,19 +1059,24 @@ var rawHtmlString2 = `<body class="f-topbar-fixed">
 var fakeOld1 = 
   {
     version: "1.0.44",
-    time: "a day ago in 4 min 58 sec",
+    time: "2017-10-26 15:32:15",
     result : "fail",
     detail : "Azure Function connect failed",
+    source : "Github",
+    author : "Zhiqing Qiu",
+    project : "devkit-shakeshake",
     to: "/detail/1",
   };
 
 var fakeOld2 = 
   {
     version: "1.0.101",
-    time: "17 days ago in 3 min 31 sec",
+    time: "2017-10-09 15:32:15",
     result : "success",
     detail : "",
-    
+    source : "Github",
+    author : "Zhiqing Qiu",
+    project : "devkit-iothub-azure-storage",
   };
 
 var fakeNew1 = 
@@ -1080,15 +1085,15 @@ var fakeNew1 =
     time: "just now",
     result : "success",
     detail : "",
+    source : "Github",
+    author : "Zhiqing Qiu",
+    project : "devkit-shakeshake",
     to: "/detail/2",
   };
 class App extends Component {
-  state = {raw: rawHtmlString, detail: fakeOld1, showDetail: false}
+  state = {raw: rawHtmlString, detail: fakeOld1, showDetail: false, building: false}
 
   componentDidMount() {
-    // fetch('/users')
-    //   .then(res => res.json())
-    //   .then(users => this.setState({ users }));
     window.mjold1 = () => {
       this.setState({
         showDetail: true,
@@ -1112,23 +1117,86 @@ class App extends Component {
     }
   }
 
+  _added = false;
+
   add = (event) => {
-            this.setState({
-              raw:rawHtmlString2,
-            })
+      if (!this._added) {
+          this._added = true;
+          this.setState({
+              raw: rawHtmlString2,
+          })
+          setTimeout(() => {
+              window.$('.project-group:nth(0) span:last').text('building...');
+              window.$('.project-group:first .project-group-header').addClass('running');
+              window.$('.project-group:first .project-build-status').addClass('running');
+              window.$('.project-group:first').addClass('mj-running');
+              var text = window.$('.project-group:first .project-build-details.ng-binding').html();
+              console.log(text);
+              text = text.replace('a day ago','currently building');
+              console.log(text);
+              window.$('.project-group:first .project-build-details.ng-binding').html(text);
+          }, 0);
+      }else {
+        setTimeout(() => {
+            window.$('.project-group:nth(0) span:last').text('just now');
+            window.$('.project-group:first .project-group-header').removeClass('running');
+            window.$('.project-group:first .project-build-status').removeClass('running');
+            window.$('.project-group:first .project-group-header').addClass('success');
+            window.$('.project-group:first .project-build-status').addClass('success');
+            window.$('.project-group:first').removeClass('mj-running');
+            var text = window.$('.project-group:first .project-build-details.ng-binding').html();
+            text = text.replace('currently building','just now');
+            window.$('.project-group:first .project-build-details.ng-binding').html(text);
+            
+        }, 0);
+      }
   }
 
   render() {
     return (
       <div className="mj-container">
       <link rel="stylesheet" href="../bundle.css" />
-      <div id="container" dangerouslySetInnerHTML={{__html: this.state.raw} } onDoubleClick={this.add}/>
-      <div className="mj-detail pricing-table" style={{display: this.state.showDetail?"block":"none"}}>
-        <li className="bullet-item">Build version: {this.state.detail.version}</li>
-        <li className="bullet-item">Timestamp: {this.state.detail.time}</li>
-        <li className="bullet-item">Result: {this.state.detail.result}</li>
-        <li className="bullet-item">Detail: {this.state.detail.detail}</li>
-        <li className="bullet-item"><Link to={this.state.detail.to} >View prototype</Link></li>
+      <div id="container" className={`${this.state.showDetail?'small-container':''}`} dangerouslySetInnerHTML={{__html: this.state.raw} } onDoubleClick={this.add}/>
+      <div className={`mj-detail ${this.state.showDetail?'mj-detail-large':''}`} style={{display: this.state.showDetail?"block":"none"}}>
+        
+        <table className="mj-table">
+            <tr>
+                <th>MetaKey</th>
+                <th>MetaValue</th>
+            </tr>
+            <tr>
+                <td>Build version</td>
+                <td>{this.state.detail.version}</td>
+            </tr>
+            <tr>
+                <td>Timestamp</td>
+                <td>{this.state.detail.time}</td>
+            </tr>
+            <tr>
+                <td>Result</td>
+                <td>{this.state.detail.result}</td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td>{this.state.detail.detail}</td>
+            </tr>
+            <tr>
+                <td>Source</td>
+                <td>{this.state.detail.source}</td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td>{this.state.detail.author}</td>
+            </tr>
+            <tr>
+                <td>Project</td>
+                <td>{this.state.detail.project}</td>
+            </tr>
+            <tr>
+                <td>Detail</td>
+                <td><Link to={this.state.detail.to} >View prototype</Link></td>
+            </tr>
+        </table>
         </div>
       </div>
     );

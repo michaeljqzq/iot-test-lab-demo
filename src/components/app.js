@@ -116,10 +116,14 @@ class App extends Component {
     render() {
       if(window.location.href.indexOf("/detail/1")!== -1) {
         var mj = {
-          version: "1.0.44",
-          time: "a day ago in 4 min 58 sec",
-          result : "fail",
-          detail : "Azure Function connect failed",
+            version: "1.0.44",
+            time: "a day ago in 4 min 58 sec",
+            result : "fail",
+            detail : "Azure Function connect failed",
+            source : "Github",
+            author : "Zhiqing Qiu",
+            project : "devkit-shakeshake",
+            to: "/detail/1",
           terminal: terminal1,
         };
       }else if(window.location.href.indexOf("/detail/2")!== -1) {
@@ -128,6 +132,9 @@ class App extends Component {
           time: "just now",
           result : "success",
           detail : "",
+          source : "Github",
+          author : "Zhiqing Qiu",
+          project : "devkit-shakeshake",
           terminal: terminal1,
         };
       }
@@ -136,13 +143,40 @@ class App extends Component {
                 <Banner />
                 <div className='main-container'>
                     {/*<Project />*/}
-                    <div className="mj-detail project-container" >
-                      <div>Build version: {mj.version}</div>
-                      <div>Timestamp: {mj.time}</div>
-                      <div>Result: {mj.result}</div>
-                      <div>Detail: {mj.detail}</div>
-                      <div><a href="#">View prototype</a></div>
-                    </div>
+                    <table className="mj-table" style={{width:"auto"}}>
+                    <tr>
+                        <th>MetaKey</th>
+                        <th>MetaValue</th>
+                    </tr>
+                    <tr>
+                        <td>Build version</td>
+                        <td>{mj.version}</td>
+                    </tr>
+                    <tr>
+                        <td>Timestamp</td>
+                        <td>{mj.time}</td>
+                    </tr>
+                    <tr>
+                        <td>Result</td>
+                        <td>{mj.result}</td>
+                    </tr>
+                    <tr>
+                        <td>Message</td>
+                        <td>{mj.detail}</td>
+                    </tr>
+                    <tr>
+                        <td>Source</td>
+                        <td>{mj.source}</td>
+                    </tr>
+                    <tr>
+                        <td>Author</td>
+                        <td>{mj.author}</td>
+                    </tr>
+                    <tr>
+                        <td>Project</td>
+                        <td>{mj.project}</td>
+                    </tr>
+                </table>
                     <div className='center-container'>
                         {/*<ControlBar />
                         <Editor />*/}

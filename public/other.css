@@ -4,14 +4,29 @@
 }
 
 .mjcss1 {
-  width: 1024px;
+  /* width: 1024px; */
+  width: 100%;
+}
+
+#container {
+  width: 100%;
+  transition: all ease 0.5s;
+}
+
+.small-container {
+  width: 60% !important;
+}
+
+.mj-detail-large {
+  width: 40%;
 }
 
 .mj-detail {
+  width: 0;
   background-color: #f4f4f4;
-  padding-top: 100px;
-  padding-left: 30px;
+  padding-top: 44px;
   flex:1;
+  transition: all ease 0.5s;
 }
 
 .mj-detail div,.mj-detail a {
@@ -27,4 +42,54 @@
   font-size: 12px;
   overflow: scroll;
   max-width: 600px;
+  padding: 0 10px;
+}
+
+body {
+  overflow: hidden !important;
+}
+
+.mj-table {
+  width: 100%;
+  min-width: 400px;
+}
+
+.mj-table th {
+  background: rgb(26,31,37);
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  font-weight:200;
+  text-align: left;
+}
+
+.mj-table td {
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: rgb(111,116,142);
+  font-weight:400; 
+}
+
+.mj-table td:nth-child(odd) {
+  background: rgb(235,235,235);
+}
+
+.react-console-container {
+  background: rgb(30,30,30) !important;
+  font-size: 12px !important;
+  color: rgb(184,184,184);
+  padding: 10px 0 0 10px !important;
+}
+
+.mj-running {
+  animation: mj-build-running-status 5s infinite ease-in-out;
+}
+
+@keyframes mj-build-running-status {
+  0%,
+  40%,
+  to{background-color:#ffffd3}
+  75%{background-color:white}
 }
