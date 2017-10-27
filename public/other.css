@@ -93,3 +93,9 @@ body {
   to{background-color:#ffffd3}
   75%{background-color:white}
 }
+
+.name h1 a {
+  background-size: 40px 40px !important;
+  text-indent: 35px !important;
+  width: 160px !important;
+}
