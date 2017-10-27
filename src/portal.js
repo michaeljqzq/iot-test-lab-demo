@@ -1194,7 +1194,7 @@ class App extends Component {
             </tr>
             <tr>
                 <td>Detail</td>
-                <td><Link to={this.state.detail.to} >View prototype</Link></td>
+                <td><Link to={this.state.detail.to} >View snapshot</Link></td>
             </tr>
         </table>
         </div>
