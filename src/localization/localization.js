@@ -11,7 +11,7 @@ class Localization {
 
 Localization.localizedStringList = {
     en: {
-        pageTitle: "IoT Test Lab - MXChip IoT DevKit",
+        pageTitle: "IoT Test Cloud - MXChip IoT DevKit",
         pageTitleMobile: "MXChip IoT DevKit Simulator",
         runButton: "Run",
         stopButton: "Stop",

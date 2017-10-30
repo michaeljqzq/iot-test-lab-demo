@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory, Route, Router, Link } from 'react-router';
+import { Route, Router, Link } from 'react-router';
 var Griddle = require('griddle-react').default;
 var LocalPlugin = require('griddle-react').plugins.LocalPlugin;
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
@@ -16,7 +16,7 @@ var rawHtmlString = `<body class="f-topbar-fixed">
         <nav class="top-bar" data-topbar="" init-foundation="" data-options="is_hover: false">
             <ul class="title-area">
                 <li class="name">
-                    <!-- ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan --><h1 ng-if="!Session.isAuthenticated() || !Session.account().isEnterprisePlan" class="ng-scope"><a class="collapse-only" href="/">Test cloud</a></h1><!-- end ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan -->
+                    <!-- ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan --><h1 ng-if="!Session.isAuthenticated() || !Session.account().isEnterprisePlan" class="ng-scope"><a class="collapse-only" href="/">IoT Test Cloud</a></h1><!-- end ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan -->
                     <!-- ngIf: Session.isAuthenticated() && Session.account().isEnterprisePlan -->
                 </li>
                 <li class="toggle-topbar menu-icon"><a href=""><span></span></a></li>
@@ -542,7 +542,7 @@ var rawHtmlString2 = `<body class="f-topbar-fixed">
         <nav class="top-bar" data-topbar="" init-foundation="" data-options="is_hover: false">
             <ul class="title-area">
                 <li class="name">
-                    <!-- ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan --><h1 ng-if="!Session.isAuthenticated() || !Session.account().isEnterprisePlan" class="ng-scope"><a class="collapse-only" href="/">Test cloud</a></h1><!-- end ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan -->
+                    <!-- ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan --><h1 ng-if="!Session.isAuthenticated() || !Session.account().isEnterprisePlan" class="ng-scope"><a class="collapse-only" href="/">IoT Test Cloud</a></h1><!-- end ngIf: !Session.isAuthenticated() || !Session.account().isEnterprisePlan -->
                     <!-- ngIf: Session.isAuthenticated() && Session.account().isEnterprisePlan -->
                 </li>
                 <li class="toggle-topbar menu-icon"><a href=""><span></span></a></li>
